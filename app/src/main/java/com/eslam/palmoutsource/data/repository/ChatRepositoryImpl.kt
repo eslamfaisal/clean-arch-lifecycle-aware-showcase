@@ -42,7 +42,7 @@ class ChatRepositoryImpl @Inject constructor(
         return try {
             // Create domain message
             val domainMessage = ChatMessage.createUserMessage(content, com.eslam.palmoutsource.domain.entity.User.CURRENT_USER)
-            
+
             // Save to local first (offline-first approach)
             val localDto = mapper.toData(domainMessage)
             localDataSource.insertMessage(localDto)

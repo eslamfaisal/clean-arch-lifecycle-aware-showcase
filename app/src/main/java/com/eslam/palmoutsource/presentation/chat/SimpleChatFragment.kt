@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app.R
 import com.example.app.databinding.FragmentChatBinding
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Simplified ChatFragment demonstrating the PRODUCTION CRASH FIX.
@@ -28,6 +29,7 @@ import com.google.android.material.snackbar.Snackbar
  * ✅ Data binding enabled
  * ✅ Clean Architecture ready
  */
+@AndroidEntryPoint
 class SimpleChatFragment : Fragment() {
 
     private val viewModel: SimpleChatViewModel by viewModels()
