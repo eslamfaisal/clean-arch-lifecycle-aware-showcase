@@ -33,7 +33,7 @@ android {
         viewBinding = true
     }
 
-    // Force Java 11 toolchain
+    // Java 17 compatibility
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -41,10 +41,6 @@ android {
 
     kotlinOptions {
         jvmTarget = "17"
-    }
-
-    kotlin {
-        jvmToolchain(17)
     }
 }
 
@@ -82,4 +78,9 @@ dependencies {
 
 kapt {
     correctErrorTypes = true
+    useBuildCache = false
+    includeCompileClasspath = false
+    arguments {
+        arg("dagger.hilt.disableModulesHaveInstallInCheck", "true")
+    }
 }
