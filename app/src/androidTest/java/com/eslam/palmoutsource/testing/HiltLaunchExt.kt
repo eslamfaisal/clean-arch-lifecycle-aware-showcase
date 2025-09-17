@@ -14,13 +14,16 @@ inline fun <reified F : Fragment> launchFragmentInHiltContainer(
     crossinline action: F.() -> Unit = {}
 ): Pair<ActivityScenario<HiltTestActivity>, F> {
     var fragmentRef: F? = null
-    val activityScenario = ActivityScenario.launch(HiltTestActivity::class.java)
-    activityScenario.onActivity { activity ->
-        // Apply theme if provided
+    
+    // Create simple intent with theme extras
+    val startActivityIntent = Intent(ApplicationProvider.getApplicationContext(), HiltTestActivity::class.java).apply {
         if (themeResId != 0) {
-            activity.setTheme(themeResId)
+            putExtra(EmptyFragmentActivity.THEME_EXTRAS_BUNDLE_KEY, themeResId)
         }
-        
+    }
+    
+    val activityScenario = ActivityScenario.launch<HiltTestActivity>(startActivityIntent)
+    activityScenario.onActivity { activity ->
         val fragment = activity.supportFragmentManager.fragmentFactory
             .instantiate(F::class.java.classLoader!!, F::class.java.name) as F
         fragment.arguments = fragmentArgs

@@ -82,7 +82,7 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Send message"
                 android:src="@drawable/ic_send"
-                android:tint="@color/colorPrimary" />
+                app:tint="@color/colorPrimary" />
 
         </LinearLayout>
 

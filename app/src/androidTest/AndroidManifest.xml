@@ -1,11 +1,9 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    
-    <application
-        android:name="dagger.hilt.android.testing.HiltTestApplication"
-        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <application>
         <activity
             android:name="com.eslam.palmoutsource.HiltTestActivity"
-            android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"/>
+            android:exported="true" />
     </application>
 </manifest>

@@ -78,8 +78,7 @@ dependencies {
 
 kapt {
     correctErrorTypes = true
-    useBuildCache = false
-    includeCompileClasspath = false
+    // The problematic lines have been removed.
     arguments {
         arg("dagger.hilt.disableModulesHaveInstallInCheck", "true")
     }
