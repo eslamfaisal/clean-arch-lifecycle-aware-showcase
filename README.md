@@ -444,7 +444,7 @@ lifecycle = "2.6.2"    # ✅ Modern lifecycle components
 ### **Setup**
 ```bash
 git clone <repository-url>
-cd palm-senior-android-developer-task
+cd clean-arch-lifecycle-aware-showcase
 ./gradlew build
 ```
 
