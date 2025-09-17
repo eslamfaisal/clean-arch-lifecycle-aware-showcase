@@ -1,8 +1,7 @@
 package com.eslam.palmoutsource.presentation.chat
 
-import android.content.Intent
-import androidx.test.core.app.ActivityScenario
-import androidx.test.core.app.ApplicationProvider
+import androidx.fragment.app.testing.FragmentScenario
+import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
@@ -15,7 +14,6 @@ import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.eslam.palmoutsource.HiltTestActivity
 import com.eslam.palmoutsource.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -47,7 +45,7 @@ class ChatFragmentInstrumentedTest {
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 
-    private lateinit var activityScenario: ActivityScenario<HiltTestActivity>
+    private lateinit var fragmentScenario: FragmentScenario<ChatFragment>
 
     @Before
     fun setup() {
@@ -55,27 +53,16 @@ class ChatFragmentInstrumentedTest {
     }
 
     /**
-     * Test: Fragment launches in HiltTestActivity successfully.
+     * Test: Fragment launches successfully with Hilt DI.
      *
      * INTEGRATION: Validates full Hilt DI chain in real Android environment.
      */
     @Test
-    fun testFragmentLaunchesInHiltActivity() {
-        // GIVEN - HiltTestActivity is launched
-        val intent = Intent(
-            ApplicationProvider.getApplicationContext(),
-            HiltTestActivity::class.java
+    fun testFragmentLaunchesWithHiltDI() {
+        // GIVEN - ChatFragment is launched in container
+        fragmentScenario = launchFragmentInContainer<ChatFragment>(
+            themeResId = R.style.Theme_PalmTask
         )
-        activityScenario = ActivityScenario.launch(intent)
-
-        // WHEN - ChatFragment is added to the activity
-        activityScenario.onActivity { activity ->
-            val fragment = ChatFragment.newInstance()
-            activity.supportFragmentManager
-                .beginTransaction()
-                .replace(com.eslam.palmoutsource.test.R.id.container, fragment)
-                .commitNow()
-        }
 
         // THEN - Fragment UI is displayed correctly
         onView(withId(R.id.recyclerViewMessages))
@@ -96,20 +83,10 @@ class ChatFragmentInstrumentedTest {
      */
     @Test
     fun testCompleteMessageSendingFlow() {
-        // GIVEN - Fragment is launched in activity
-        val intent = Intent(
-            ApplicationProvider.getApplicationContext(),
-            HiltTestActivity::class.java
+        // GIVEN - Fragment is launched in container
+        fragmentScenario = launchFragmentInContainer<ChatFragment>(
+            themeResId = R.style.Theme_PalmTask
         )
-        activityScenario = ActivityScenario.launch(intent)
-
-        activityScenario.onActivity { activity ->
-            val fragment = ChatFragment.newInstance()
-            activity.supportFragmentManager
-                .beginTransaction()
-                .replace(com.eslam.palmoutsource.test.R.id.container, fragment)
-                .commitNow()
-        }
 
         // Wait for initial load
         Thread.sleep(1500)
@@ -132,29 +109,19 @@ class ChatFragmentInstrumentedTest {
     }
 
     /**
-     * Test: Fragment handles activity lifecycle changes.
+     * Test: Fragment handles lifecycle changes.
      *
      * LIFECYCLE: Critical test for production crash fix validation.
      */
     @Test
-    fun testFragmentSurvivesActivityRecreation() {
-        // GIVEN - Fragment is running in activity
-        val intent = Intent(
-            ApplicationProvider.getApplicationContext(),
-            HiltTestActivity::class.java
+    fun testFragmentSurvivesLifecycleChanges() {
+        // GIVEN - Fragment is launched in container
+        fragmentScenario = launchFragmentInContainer<ChatFragment>(
+            themeResId = R.style.Theme_PalmTask
         )
-        activityScenario = ActivityScenario.launch(intent)
 
-        activityScenario.onActivity { activity ->
-            val fragment = ChatFragment.newInstance()
-            activity.supportFragmentManager
-                .beginTransaction()
-                .replace(com.eslam.palmoutsource.test.R.id.container, fragment)
-                .commitNow()
-        }
-
-        // WHEN - Activity is recreated (configuration change)
-        activityScenario.recreate()
+        // WHEN - Fragment is recreated (lifecycle change)
+        fragmentScenario.recreate()
 
         // THEN - Fragment is still functional
         onView(withId(R.id.recyclerViewMessages))
@@ -177,20 +144,10 @@ class ChatFragmentInstrumentedTest {
      */
     @Test
     fun testErrorHandlingWithLongPress() {
-        // GIVEN - Fragment is displayed
-        val intent = Intent(
-            ApplicationProvider.getApplicationContext(),
-            HiltTestActivity::class.java
+        // GIVEN - Fragment is displayed in container
+        fragmentScenario = launchFragmentInContainer<ChatFragment>(
+            themeResId = R.style.Theme_PalmTask
         )
-        activityScenario = ActivityScenario.launch(intent)
-
-        activityScenario.onActivity { activity ->
-            val fragment = ChatFragment.newInstance()
-            activity.supportFragmentManager
-                .beginTransaction()
-                .replace(com.eslam.palmoutsource.test.R.id.container, fragment)
-                .commitNow()
-        }
 
         // WHEN - Long press to trigger retry
         onView(withId(R.id.recyclerViewMessages))
@@ -211,20 +168,10 @@ class ChatFragmentInstrumentedTest {
      */
     @Test
     fun testRapidInteractionsPerformance() {
-        // GIVEN - Fragment is ready
-        val intent = Intent(
-            ApplicationProvider.getApplicationContext(),
-            HiltTestActivity::class.java
+        // GIVEN - Fragment is ready in container
+        fragmentScenario = launchFragmentInContainer<ChatFragment>(
+            themeResId = R.style.Theme_PalmTask
         )
-        activityScenario = ActivityScenario.launch(intent)
-
-        activityScenario.onActivity { activity ->
-            val fragment = ChatFragment.newInstance()
-            activity.supportFragmentManager
-                .beginTransaction()
-                .replace(com.eslam.palmoutsource.test.R.id.container, fragment)
-                .commitNow()
-        }
 
         // WHEN - Rapid message sending
         repeat(3) { index ->
@@ -254,19 +201,9 @@ class ChatFragmentInstrumentedTest {
     @Test
     fun testHiltDependencyInjectionWorks() {
         // GIVEN - Fragment uses Hilt for ViewModel injection
-        val intent = Intent(
-            ApplicationProvider.getApplicationContext(),
-            HiltTestActivity::class.java
+        fragmentScenario = launchFragmentInContainer<ChatFragment>(
+            themeResId = R.style.Theme_PalmTask
         )
-        activityScenario = ActivityScenario.launch(intent)
-
-        activityScenario.onActivity { activity ->
-            val fragment = ChatFragment.newInstance()
-            activity.supportFragmentManager
-                .beginTransaction()
-                .replace(com.eslam.palmoutsource.test.R.id.container, fragment)
-                .commitNow()
-        }
 
         // Wait for ViewModel initialization and data loading
         Thread.sleep(1500)

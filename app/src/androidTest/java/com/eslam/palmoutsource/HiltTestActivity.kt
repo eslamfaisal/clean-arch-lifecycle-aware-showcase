@@ -5,23 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
- * Test activity for hosting fragments in instrumented tests.
- * 
- * This activity provides a container for testing fragments in isolation
- * while maintaining proper Hilt dependency injection.
- * 
- * TESTING ARCHITECTURE PRINCIPLES:
- * ✅ Minimal activity for fragment testing
- * ✅ Hilt-enabled for proper DI
- * ✅ Follows Android testing best practices
- * ✅ Compatible with both Espresso and Robolectric
+ * Test-only activity for hosting fragments in instrumented tests.
+ *
+ * Provides an isolated container to attach and test fragments
+ * with Hilt dependency injection enabled.
  */
 @AndroidEntryPoint
 class HiltTestActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Container layout for hosting test fragments
+        // Use a very minimal container layout
         setContentView(com.eslam.palmoutsource.test.R.layout.activity_test_container)
     }
 }
