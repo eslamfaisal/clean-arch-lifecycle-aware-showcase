@@ -6,7 +6,7 @@
     <data>
         <variable
             name="message"
-            type="com.eslam.palmoutsource.presentation.chat.MessageUiModel" />
+            type="com.eslam.palmoutsource.presentation.chat.adapter.MessageUiModel" />
         
         <import type="android.view.View" />
     </data>

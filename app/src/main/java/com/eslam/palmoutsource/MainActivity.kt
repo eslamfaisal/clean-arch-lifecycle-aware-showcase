@@ -3,7 +3,7 @@ package com.eslam.palmoutsource
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.eslam.palmoutsource.presentation.chat.ChatFragment
-import com.example.app.R
+import com.eslam.palmoutsource.R
 import dagger.hilt.android.AndroidEntryPoint
 
 /**

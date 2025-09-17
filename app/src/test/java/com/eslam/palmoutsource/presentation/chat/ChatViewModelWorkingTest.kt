@@ -155,3 +155,4 @@ class ChatViewModelWorkingTest {
         Assert.assertTrue("Should have messages after multiple loads", messages!!.isNotEmpty())
     }
 }
+

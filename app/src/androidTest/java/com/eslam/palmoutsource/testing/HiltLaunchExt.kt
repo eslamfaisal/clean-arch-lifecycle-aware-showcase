@@ -3,7 +3,7 @@ package com.eslam.palmoutsource.testing
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.testing.FragmentScenario
+import androidx.fragment.app.testing.EmptyFragmentActivity
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import com.eslam.palmoutsource.HiltTestActivity
@@ -13,17 +13,14 @@ inline fun <reified F : Fragment> launchFragmentInHiltContainer(
     themeResId: Int,
     crossinline action: F.() -> Unit = {}
 ): Pair<ActivityScenario<HiltTestActivity>, F> {
-    val startActivityIntent = Intent(
-        ApplicationProvider.getApplicationContext(),
-        HiltTestActivity::class.java
-    ).putExtra(
-        FragmentScenario.EmptyFragmentActivity.THEME_EXTRAS_BUNDLE_KEY,
-        themeResId
-    )
-
     var fragmentRef: F? = null
-    val activityScenario = ActivityScenario.launch<HiltTestActivity>(startActivityIntent)
+    val activityScenario = ActivityScenario.launch(HiltTestActivity::class.java)
     activityScenario.onActivity { activity ->
+        // Apply theme if provided
+        if (themeResId != 0) {
+            activity.setTheme(themeResId)
+        }
+        
         val fragment = activity.supportFragmentManager.fragmentFactory
             .instantiate(F::class.java.classLoader!!, F::class.java.name) as F
         fragment.arguments = fragmentArgs

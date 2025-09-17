@@ -3,7 +3,7 @@ package com.eslam.palmoutsource.presentation.chat
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.BindingAdapter
-import com.example.app.R
+import com.eslam.palmoutsource.R
 
 /**
  * Custom binding adapters for message UI components.

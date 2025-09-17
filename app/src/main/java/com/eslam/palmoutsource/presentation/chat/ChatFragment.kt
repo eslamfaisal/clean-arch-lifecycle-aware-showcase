@@ -8,8 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.app.R
-import com.example.app.databinding.FragmentChatBinding
+import com.eslam.palmoutsource.R
+import com.eslam.palmoutsource.databinding.FragmentChatBinding
+import com.eslam.palmoutsource.presentation.chat.adapter.SimpleMessagesAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -6,16 +6,16 @@ plugins {
 }
 
 android {
-    namespace = "com.example.app" // change to your package
+    namespace = "com.eslam.palmoutsource"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.app" // change to your package
+        applicationId = "com.eslam.palmoutsource"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = "dagger.hilt.android.testing.HiltTestRunner"
+        testInstrumentationRunner = "com.eslam.palmoutsource.HiltTestRunner"
     }
 
     buildTypes {

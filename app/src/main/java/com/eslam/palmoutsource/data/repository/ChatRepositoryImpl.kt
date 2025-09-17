@@ -40,8 +40,9 @@ class ChatRepositoryImpl @Inject constructor(
 
     override suspend fun sendMessage(content: String): Result<ChatMessage> {
         return try {
-            // Create domain message
-            val domainMessage = ChatMessage.createUserMessage(content, com.eslam.palmoutsource.domain.entity.User.CURRENT_USER)
+            // Create domain message with trimmed content
+            val trimmedContent = content.trim()
+            val domainMessage = ChatMessage.createUserMessage(trimmedContent, com.eslam.palmoutsource.domain.entity.User.CURRENT_USER)
 
             // Save to local first (offline-first approach)
             val localDto = mapper.toData(domainMessage)

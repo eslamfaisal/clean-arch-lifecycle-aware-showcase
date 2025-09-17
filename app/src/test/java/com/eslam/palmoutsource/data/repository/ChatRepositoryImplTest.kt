@@ -20,6 +20,7 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.kotlin.any
 import org.mockito.kotlin.argumentCaptor
+import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoInteractions
@@ -141,14 +142,18 @@ class ChatRepositoryImplTest {
         // Given
         val content = "Test message"
         val captor = argumentCaptor<ChatMessageDto>()
-        whenever(mockRemoteDataSource.sendMessage(captor.capture())).thenThrow(NetworkException("Network error"))
+        
+        // Mock the remote data source to throw an exception
+        whenever(mockRemoteDataSource.sendMessage(any())).thenAnswer { 
+            throw NetworkException("Network error")
+        }
 
         // When
         val result = repository.sendMessage(content)
 
         // Then
         assertTrue(result.isSuccess) // Sending is successful from the user's perspective
-        verify(mockLocalDataSource).insertMessage(captor.firstValue)
+        verify(mockLocalDataSource).insertMessage(captor.capture())
         verify(mockRemoteDataSource).sendMessage(captor.firstValue)
         verify(mockLocalDataSource).markAsPendingSync(captor.firstValue.id)
         verify(mockLocalDataSource, never()).updateMessage(any())
@@ -218,7 +223,9 @@ class ChatRepositoryImplTest {
         val localDtoList = listOf(testMessageDto)
         val expectedDomainList = listOf(testDomainMessage)
 
-        whenever(mockRemoteDataSource.getMessages()).thenThrow(NetworkException("Network error"))
+        whenever(mockRemoteDataSource.getMessages()).thenAnswer { 
+            throw NetworkException("Network error")
+        }
         whenever(mockLocalDataSource.getMessages()).thenReturn(localDtoList)
 
         // When
@@ -237,7 +244,9 @@ class ChatRepositoryImplTest {
         // Given
         val exception = RuntimeException("Storage error")
 
-        whenever(mockRemoteDataSource.getMessages()).thenThrow(NetworkException("Network error"))
+        whenever(mockRemoteDataSource.getMessages()).thenAnswer { 
+            throw NetworkException("Network error")
+        }
         whenever(mockLocalDataSource.getMessages()).thenThrow(exception)
 
         // When

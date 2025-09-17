@@ -1,12 +1,14 @@
-package com.eslam.palmoutsource.presentation.chat
+package com.eslam.palmoutsource.presentation.chat.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.app.R
-import com.example.app.databinding.ItemMessageBinding
+import com.eslam.palmoutsource.R
+import com.eslam.palmoutsource.databinding.ItemMessageBinding
+import com.eslam.palmoutsource.presentation.chat.Message
+import java.util.Date
 
 /**
  * Simplified RecyclerView adapter with data binding and DiffUtil.
@@ -103,7 +105,7 @@ data class MessageUiModel(
             val formatter = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault())
             return MessageUiModel(
                 text = message.text,
-                timestamp = formatter.format(java.util.Date(message.timestamp)),
+                timestamp = formatter.format(Date(message.timestamp)),
                 isFromCurrentUser = message.isFromUser
             )
         }
