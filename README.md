@@ -1,5 +1,3 @@
-# 🚀 Palm Senior Android Developer Task - Production Crash Solution
-
 [![Android](https://img.shields.io/badge/Android-API%2024+-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=24)
 [![Kotlin](https://img.shields.io/badge/Kotlin-1.9.23-blue.svg?style=flat)](https://kotlinlang.org)
 [![AGP](https://img.shields.io/badge/AGP-8.6.0-orange.svg?style=flat)](https://developer.android.com/studio/releases/gradle-plugin)
