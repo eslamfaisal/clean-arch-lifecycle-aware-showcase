@@ -73,6 +73,9 @@ dependencies {
     testImplementation(libs.mockito.kotlin)
     testImplementation(libs.androidx.arch.core.testing)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.hilt.android.testing)
+    kaptTest(libs.hilt.android.compiler)
     debugImplementation(libs.androidx.fragment.testing)
 }
 

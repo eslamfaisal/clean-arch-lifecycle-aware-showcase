@@ -16,7 +16,7 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="chatFragment_survivesViewDestructionAndRecreation_withViewLifecycleOwner()">
+      <SelectionState runConfigName="ChatFragmentInstrumentedTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
