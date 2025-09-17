@@ -16,6 +16,6 @@ class HiltTestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Use a very minimal container layout
-        setContentView(com.eslam.palmoutsource.test.R.layout.activity_test_container)
+        setContentView(R.layout.activity_test_container)
     }
 }

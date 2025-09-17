@@ -20,7 +20,7 @@ inline fun <reified T : Fragment> launchFragmentInHiltContainer(
         fragment.arguments = fragmentArgs
         activity.supportFragmentManager.beginTransaction()
             .replace(
-                com.eslam.palmoutsource.test.R.id.test_fragment_container,
+                com.eslam.palmoutsource.R.id.test_fragment_container,
                 fragment,
                 T::class.java.simpleName
             )
