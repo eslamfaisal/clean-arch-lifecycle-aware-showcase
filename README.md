@@ -470,6 +470,11 @@ BUILD SUCCESSFUL in 1s
 - ✅ **Espresso Tests**: `FragmentLifecycleBasicTest.kt` - 3 tests proving Fragment crash fix works
 - ✅ **Coverage**: Production crash scenario reproduction and validation
 
+<br/>
+
+<img width="1081" height="597" alt="Image" src="https://github.com/user-attachments/assets/e1729956-0ec4-4d80-ab05-47b53f45fda6" />
+<img width="1099" height="607" alt="Image" src="https://github.com/user-attachments/assets/57e138e3-cdba-4370-919e-b48e5bc5afbd" />
+
 ### **Key Files to Review**
 1. **Production Fix**: `SimpleChatFragment.kt` - Shows the exact crash fix
 2. **Architecture**: `ChatModule.kt` - Dependency injection setup
