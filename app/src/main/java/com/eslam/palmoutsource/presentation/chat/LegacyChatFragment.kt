@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eslam.palmoutsource.R
 import com.eslam.palmoutsource.databinding.FragmentChatBinding
-import com.eslam.palmoutsource.presentation.chat.adapter.SimpleMessagesAdapter
+import com.eslam.palmoutsource.presentation.chat.adapter.LegacySimpleMessagesAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,8 +28,7 @@ class LegacyChatFragment : Fragment() {
     private val viewModel: SimpleChatViewModel by viewModels()
     private var _binding: FragmentChatBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: SimpleMessagesAdapter
-
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,12 +55,10 @@ class LegacyChatFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = SimpleMessagesAdapter()
         binding.recyclerViewMessages.apply {
             layoutManager = LinearLayoutManager(context).apply {
                 stackFromEnd = true // Start from bottom like a chat
             }
-            adapter = this@LegacyChatFragment.adapter
         }
     }
 
@@ -89,12 +86,11 @@ class LegacyChatFragment : Fragment() {
     private fun observeViewModel() {
         // ❌ BUG: Using requireActivity() will cause a crash.
         viewModel.messages.observe(requireActivity()) { messages ->
-            if (::adapter.isInitialized && isAdded) {
-                adapter.updateMessages(messages)
+            // ❌ BUG: Creating a new adapter on every data change is inefficient.
+            binding.recyclerViewMessages.adapter = LegacySimpleMessagesAdapter(messages)
 
-                if (messages.isNotEmpty()) {
-                    binding.recyclerViewMessages.smoothScrollToPosition(messages.size - 1)
-                }
+            if (messages.isNotEmpty()) {
+                binding.recyclerViewMessages.smoothScrollToPosition(messages.size - 1)
             }
         }
 
