@@ -435,7 +435,7 @@ lifecycle = "2.6.2"    # ✅ Modern lifecycle components
 ## 🏃‍♂️ **Getting Started**
 
 ### **Prerequisites**
-- Android Studio Hedgehog | 2023.1.1+
+- AGP 8.6.0
 - JDK 17
 - Android SDK 34
 
